@@ -11,10 +11,11 @@ class TinderSwapCard extends StatefulWidget {
   CardBuilder _cardBuilder;
   int _totalNum;
   int _stackNum;
-  double _maxWidth;
-  double _minWidth;
-  double _maxHeight;
-  double _minHeight;
+
+//  double _maxWidth;
+//  double _minWidth;
+//  double _maxHeight;
+//  double _minHeight;
 
   @override
   _TinderSwapCardState createState() => _TinderSwapCardState();
@@ -35,11 +36,12 @@ class TinderSwapCard extends StatefulWidget {
         this._totalNum = totalNum,
         assert(stackNum > 1),
         this._stackNum = stackNum,
-        assert(maxWidth > minWidth && maxHeight > minHeight),
-        this._maxWidth = maxWidth,
-        this._minWidth = minWidth,
-        this._maxHeight = maxHeight,
-        this._minHeight = minHeight {
+        assert(maxWidth > minWidth && maxHeight > minHeight)
+//        this._maxWidth = maxWidth,
+//        this._minWidth = minWidth,
+//        this._maxHeight = maxHeight,
+//        this._minHeight = minHeight
+  {
     double widthGap = maxWidth - minWidth;
     double heightGap = maxHeight - minHeight;
 
@@ -89,15 +91,15 @@ class _TinderSwapCardState extends State<TinderSwapCard>
       return Align(
         alignment: _animationController.status == AnimationStatus.forward
             ? CardAnimation.frontCardAlign(_animationController, frontCardAlign,
-            _cardAligns[widget._stackNum - 1])
-            .value
+                    _cardAligns[widget._stackNum - 1])
+                .value
             : frontCardAlign,
         child: Transform.rotate(
             angle: (pi / 180.0) *
                 (_animationController.status == AnimationStatus.forward
                     ? CardAnimation.frontCardRota(
-                    _animationController, _cardRote)
-                    .value
+                            _animationController, _cardRote)
+                        .value
                     : _cardRote),
             child: new SizedBox.fromSize(
               size: _cardSizes[index],
@@ -109,17 +111,17 @@ class _TinderSwapCardState extends State<TinderSwapCard>
 
     return Align(
       alignment: _animationController.status == AnimationStatus.forward &&
-          (frontCardAlign.x > 3.0 || frontCardAlign.x < -3.0)
+              (frontCardAlign.x > 3.0 || frontCardAlign.x < -3.0)
           ? CardAnimation.backCardAlign(_animationController,
-          _cardAligns[index], _cardAligns[index + 1])
-          .value
+                  _cardAligns[index], _cardAligns[index + 1])
+              .value
           : _cardAligns[index],
       child: new SizedBox.fromSize(
         size: _animationController.status == AnimationStatus.forward &&
-            (frontCardAlign.x > 3.0 || frontCardAlign.x < -3.0)
+                (frontCardAlign.x > 3.0 || frontCardAlign.x < -3.0)
             ? CardAnimation.backCardSize(_animationController,
-            _cardSizes[index], _cardSizes[index + 1])
-            .value
+                    _cardSizes[index], _cardSizes[index + 1])
+                .value
             : _cardSizes[index],
         child: widget._cardBuilder(context, widget._totalNum - realIndex - 1),
       ),
@@ -205,9 +207,9 @@ class CardAnimation {
         ? (beginAlign.x > 3.0 ? beginAlign.x + 10.0 : baseAlign.x)
         : (beginAlign.x < -3.0 ? beginAlign.x - 10.0 : baseAlign.x);
     return new AlignmentTween(
-        begin: beginAlign, end: new Alignment(endX, baseAlign.y))
+            begin: beginAlign, end: new Alignment(endX, baseAlign.y))
         .animate(
-        new CurvedAnimation(parent: controller, curve: Curves.easeOut));
+            new CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
 
   static Animation<double> frontCardRota(
@@ -228,4 +230,3 @@ class CardAnimation {
         new CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
 }
-
