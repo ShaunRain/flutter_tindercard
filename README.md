@@ -12,4 +12,4 @@ Tinder Card Widget.
 
 2. Import it: ```import 'package:flutter_tindercard.dart'```
 
-3. Add TinderSwapCard in your widget layout and write the single card layout builder you need, then you get a Tinder(陌陌) like swap card widget!
+3. Add TinderSwapCard in your widget layout and write the single card layout builder you need, then you get a Tinder(探探) like swap card widget!
