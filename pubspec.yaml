@@ -1,8 +1,8 @@
 name: flutter_tindercard
-description: Tinder Card Widget.
-version: 0.0.1
-author:
-homepage:
+description: Tinder(MoMo) Card Widget, fast way to have a high quality swap card widget in your flutter app.
+version: 0.1.0
+author: ShaunRain <rainamie@gmail.com>
+homepage: https://github.com/ShaunRain/flutter_tindercard
 
 environment:
   sdk: ">=2.0.0-dev.68.0 <3.0.0"
