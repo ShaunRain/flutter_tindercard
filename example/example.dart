@@ -24,7 +24,6 @@ class ExampleHomePage extends StatefulWidget {
 
 class _ExampleHomePageState extends State<ExampleHomePage>
     with TickerProviderStateMixin {
-
   List<String> welcomeImages = [
     "assets/welcome0.png",
     "assets/welcome1.png",
@@ -41,17 +40,22 @@ class _ExampleHomePageState extends State<ExampleHomePage>
           child: Container(
               height: MediaQuery.of(context).size.height * 0.6,
               child: new TinderSwapCard(
-                orientation: AmassOrientation.BOTTOM,
-                totalNum: 6,
-                stackNum: 3,
-                maxWidth: MediaQuery.of(context).size.width * 0.9,
-                maxHeight: MediaQuery.of(context).size.width * 0.9,
-                minWidth: MediaQuery.of(context).size.width * 0.8,
-                minHeight: MediaQuery.of(context).size.width * 0.8,
-                cardBuilder: (context, index) => Card(
-                      child: Image.asset('${welcomeImages[index]}'),
-                    ),
-              ))),
+                  orientation: AmassOrientation.BOTTOM,
+                  totalNum: 6,
+                  stackNum: 3,
+                  maxWidth: MediaQuery.of(context).size.width * 0.9,
+                  maxHeight: MediaQuery.of(context).size.width * 0.9,
+                  minWidth: MediaQuery.of(context).size.width * 0.8,
+                  minHeight: MediaQuery.of(context).size.width * 0.8,
+                  cardBuilder: (context, index) => Card(
+                        child: Image.asset('${welcomeImages[index]}'),
+                      ),
+                  swipeUpdateCallback: (DragUpdateDetails details) {
+                    /// Get swiping card's position
+                  },
+                  swipeCompleteCallback: (CardSwipeOrientation orientation) {
+                    /// Get orientation of swiped card!
+                  }))),
     );
   }
 }
