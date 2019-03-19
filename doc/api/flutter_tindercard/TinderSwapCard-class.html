@@ -48,9 +48,12 @@
     
       <li class="section-title"><a href="flutter_tindercard/flutter_tindercard-library.html#enums">Enums</a></li>
       <li><a href="flutter_tindercard/AmassOrientation-class.html">AmassOrientation</a></li>
+      <li><a href="flutter_tindercard/CardSwipeOrientation-class.html">CardSwipeOrientation</a></li>
     
       <li class="section-title"><a href="flutter_tindercard/flutter_tindercard-library.html#typedefs">Typedefs</a></li>
       <li><a href="flutter_tindercard/CardBuilder.html">CardBuilder</a></li>
+      <li><a href="flutter_tindercard/CardDragUpdateCallback.html">CardDragUpdateCallback</a></li>
+      <li><a href="flutter_tindercard/CardSwipeCompleteCallback.html">CardSwipeCompleteCallback</a></li>
     
     </ol>
   </div>
@@ -68,7 +71,7 @@
 
       <dl class="constructor-summary-list">
         <dt id="TinderSwapCard" class="callable">
-          <span class="name"><a href="flutter_tindercard/TinderSwapCard/TinderSwapCard.html">TinderSwapCard</a></span><span class="signature">({<span class="parameter" id="-param-cardBuilder"><span>@required</span> <span class="type-annotation"><a href="flutter_tindercard/CardBuilder.html">CardBuilder</a></span> <span class="parameter-name">cardBuilder</span>, </span> <span class="parameter" id="-param-totalNum"><span>@required</span> <span class="type-annotation">int</span> <span class="parameter-name">totalNum</span>, </span> <span class="parameter" id="-param-orientation"><span class="type-annotation"><a href="flutter_tindercard/AmassOrientation-class.html">AmassOrientation</a></span> <span class="parameter-name">orientation</span>: <span class="default-value">AmassOrientation.BOTTOM</span>, </span> <span class="parameter" id="-param-stackNum"><span class="type-annotation">int</span> <span class="parameter-name">stackNum</span>: <span class="default-value">3</span>, </span> <span class="parameter" id="-param-maxWidth"><span class="type-annotation">double</span> <span class="parameter-name">maxWidth</span>, </span> <span class="parameter" id="-param-maxHeight"><span class="type-annotation">double</span> <span class="parameter-name">maxHeight</span>, </span> <span class="parameter" id="-param-minWidth"><span class="type-annotation">double</span> <span class="parameter-name">minWidth</span>, </span> <span class="parameter" id="-param-minHeight"><span class="type-annotation">double</span> <span class="parameter-name">minHeight</span></span> })</span>
+          <span class="name"><a href="flutter_tindercard/TinderSwapCard/TinderSwapCard.html">TinderSwapCard</a></span><span class="signature">({<span class="parameter" id="-param-cardBuilder"><span>@required</span> <span class="type-annotation"><a href="flutter_tindercard/CardBuilder.html">CardBuilder</a></span> <span class="parameter-name">cardBuilder</span>, </span> <span class="parameter" id="-param-totalNum"><span>@required</span> <span class="type-annotation">int</span> <span class="parameter-name">totalNum</span>, </span> <span class="parameter" id="-param-orientation"><span class="type-annotation"><a href="flutter_tindercard/AmassOrientation-class.html">AmassOrientation</a></span> <span class="parameter-name">orientation</span>: <span class="default-value">AmassOrientation.BOTTOM</span>, </span> <span class="parameter" id="-param-stackNum"><span class="type-annotation">int</span> <span class="parameter-name">stackNum</span>: <span class="default-value">3</span>, </span> <span class="parameter" id="-param-maxWidth"><span class="type-annotation">double</span> <span class="parameter-name">maxWidth</span>, </span> <span class="parameter" id="-param-maxHeight"><span class="type-annotation">double</span> <span class="parameter-name">maxHeight</span>, </span> <span class="parameter" id="-param-minWidth"><span class="type-annotation">double</span> <span class="parameter-name">minWidth</span>, </span> <span class="parameter" id="-param-minHeight"><span class="type-annotation">double</span> <span class="parameter-name">minHeight</span>, </span> <span class="parameter" id="-param-swipeCompleteCallback"><span class="type-annotation"><a href="flutter_tindercard/CardSwipeCompleteCallback.html">CardSwipeCompleteCallback</a></span> <span class="parameter-name">swipeCompleteCallback</span>, </span> <span class="parameter" id="-param-swipeUpdateCallback"><span class="type-annotation"><a href="flutter_tindercard/CardDragUpdateCallback.html">CardDragUpdateCallback</a></span> <span class="parameter-name">swipeUpdateCallback</span></span> })</span>
         </dt>
         <dd>
           Constructor requires Card Widget Builder <code>cardBuilder</code> &amp; your card count <code>totalNum</code>
@@ -78,10 +81,26 @@
       </dl>
     </section>
 
-    <section class="summary offset-anchor inherited" id="instance-properties">
+    <section class="summary offset-anchor" id="instance-properties">
       <h2>Properties</h2>
 
       <dl class="properties">
+        <dt id="swipeCompleteCallback" class="property">
+          <span class="name"><a href="flutter_tindercard/TinderSwapCard/swipeCompleteCallback.html">swipeCompleteCallback</a></span>
+          <span class="signature">&#8596; <a href="flutter_tindercard/CardSwipeCompleteCallback.html">CardSwipeCompleteCallback</a></span> 
+        </dt>
+        <dd>
+          
+          <div class="features">read / write</div>
+</dd>
+        <dt id="swipeUpdateCallback" class="property">
+          <span class="name"><a href="flutter_tindercard/TinderSwapCard/swipeUpdateCallback.html">swipeUpdateCallback</a></span>
+          <span class="signature">&#8596; <a href="flutter_tindercard/CardDragUpdateCallback.html">CardDragUpdateCallback</a></span> 
+        </dt>
+        <dd>
+          
+          <div class="features">read / write</div>
+</dd>
         <dt id="hashCode" class="property inherited">
           <span class="name"><a href="flutter_tindercard/TinderSwapCard/hashCode.html">hashCode</a></span>
           <span class="signature">&#8594; int</span> 
@@ -232,9 +251,11 @@ tools and by <a href="flutter_tindercard/TinderSwapCard/toStringDeep.html">toStr
       <li class="section-title"><a href="flutter_tindercard/TinderSwapCard-class.html#constructors">Constructors</a></li>
       <li><a href="flutter_tindercard/TinderSwapCard/TinderSwapCard.html">TinderSwapCard</a></li>
     
-      <li class="section-title inherited">
+      <li class="section-title">
         <a href="flutter_tindercard/TinderSwapCard-class.html#instance-properties">Properties</a>
       </li>
+      <li><a href="flutter_tindercard/TinderSwapCard/swipeCompleteCallback.html">swipeCompleteCallback</a></li>
+      <li><a href="flutter_tindercard/TinderSwapCard/swipeUpdateCallback.html">swipeUpdateCallback</a></li>
       <li class="inherited"><a href="flutter_tindercard/TinderSwapCard/hashCode.html">hashCode</a></li>
       <li class="inherited"><a href="flutter_tindercard/TinderSwapCard/key.html">key</a></li>
       <li class="inherited"><a href="flutter_tindercard/TinderSwapCard/runtimeType.html">runtimeType</a></li>
@@ -263,7 +284,7 @@ tools and by <a href="flutter_tindercard/TinderSwapCard/toStringDeep.html">toStr
 
 <footer>
   <span class="no-break">
-    flutter_tindercard 0.0.1
+    flutter_tindercard 0.1.2
   </span>
 
 </footer>

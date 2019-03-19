@@ -11,6 +11,8 @@ class TinderSwapCard extends StatefulWidget {
   CardBuilder _cardBuilder;
   int _totalNum;
   int _stackNum;
+  CardSwipeCompleteCallback swipeCompleteCallback;
+  CardDragUpdateCallback swipeUpdateCallback;
 
 //  double _maxWidth;
 //  double _minWidth;
@@ -23,16 +25,18 @@ class TinderSwapCard extends StatefulWidget {
   /// Constructor requires Card Widget Builder [cardBuilder] & your card count [totalNum]
   /// , option includes: stack orientation [orientation], number of card display in same time [stackNum]
   /// , and size control params;
-  TinderSwapCard({
-    @required CardBuilder cardBuilder,
-    @required int totalNum,
-    AmassOrientation orientation = AmassOrientation.BOTTOM,
-    int stackNum = 3,
-    double maxWidth,
-    double maxHeight,
-    double minWidth,
-    double minHeight,
-  })  : this._cardBuilder = cardBuilder,
+  TinderSwapCard(
+      {@required CardBuilder cardBuilder,
+      @required int totalNum,
+      AmassOrientation orientation = AmassOrientation.BOTTOM,
+      int stackNum = 3,
+      double maxWidth,
+      double maxHeight,
+      double minWidth,
+      double minHeight,
+      this.swipeCompleteCallback,
+      this.swipeUpdateCallback})
+      : this._cardBuilder = cardBuilder,
         this._totalNum = totalNum,
         assert(stackNum > 1),
         this._stackNum = stackNum,
@@ -145,6 +149,10 @@ class _TinderSwapCardState extends State<TinderSwapCard>
                     details.delta.dy * 30 / MediaQuery.of(context).size.height);
 
             _cardRote = frontCardAlign.x;
+
+            if (widget.swipeUpdateCallback != null) {
+              widget.swipeUpdateCallback(details);
+            }
           });
         },
         onPanEnd: (DragEndDetails details) {
@@ -175,7 +183,16 @@ class _TinderSwapCardState extends State<TinderSwapCard>
         if (frontCardAlign.x < 3.0 && frontCardAlign.x > -3.0) {
           frontCardAlign = _cardAligns[widget._stackNum - 1];
           _cardRote = 0.0;
+          if (widget.swipeCompleteCallback != null) {
+            widget.swipeCompleteCallback(CardSwipeOrientation.RECOVER);
+          }
         } else {
+          if (widget.swipeCompleteCallback != null) {
+            widget.swipeCompleteCallback(frontCardAlign.x < 0
+                ? CardSwipeOrientation.LEFT
+                : CardSwipeOrientation.RIGHT);
+          }
+
           changeCardOrder();
         }
       }
@@ -197,6 +214,16 @@ class _TinderSwapCardState extends State<TinderSwapCard>
 }
 
 typedef Widget CardBuilder(BuildContext context, int index);
+
+enum CardSwipeOrientation { LEFT, RIGHT, RECOVER }
+
+/// swipe card to [CardSwipeOrientation.LEFT] or [CardSwipeOrientation.RIGHT]
+/// , [CardSwipeOrientation.RECOVER] means back to start.
+typedef CardSwipeCompleteCallback = void Function(
+    CardSwipeOrientation orientation);
+
+/// [DragUpdateDetails] of swiping card.
+typedef CardDragUpdateCallback = void Function(DragUpdateDetails details);
 
 enum AmassOrientation { TOP, BOTTOM, LEFT, RIGHT }
 

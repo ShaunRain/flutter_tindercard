@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="API docs for the CardBuilder property from the flutter_tindercard library, for the Dart programming language.">
-  <title>CardBuilder typedef - flutter_tindercard library - Dart API</title>
+  <meta name="description" content="API docs for the CardDragUpdateCallback property from the flutter_tindercard library, for the Dart programming language.">
+  <title>CardDragUpdateCallback typedef - flutter_tindercard library - Dart API</title>
   <!-- required because all the links are pseudo-absolute -->
   <base href="..">
 
@@ -25,9 +25,9 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="index.html">flutter_tindercard</a></li>
     <li><a href="flutter_tindercard/flutter_tindercard-library.html">flutter_tindercard</a></li>
-    <li class="self-crumb">CardBuilder typedef</li>
+    <li class="self-crumb">CardDragUpdateCallback typedef</li>
   </ol>
-  <div class="self-name">CardBuilder</div>
+  <div class="self-name">CardDragUpdateCallback</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -59,15 +59,21 @@
   </div><!--/.sidebar-offcanvas-left-->
 
   <div class="col-xs-12 col-sm-9 col-md-8 main-content">
-    <h1>CardBuilder typedef </h1>
+    <h1>CardDragUpdateCallback typedef </h1>
 
     <section class="multi-line-signature">
-        <span class="returntype">Widget</span>
-        <span class="name ">CardBuilder</span>
-(<wbr><span class="parameter" id="CardBuilder-param-context"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span>, </span> <span class="parameter" id="CardBuilder-param-index"><span class="type-annotation">int</span> <span class="parameter-name">index</span></span>)
+        <span class="returntype">void</span>
+        <span class="name ">CardDragUpdateCallback</span>
+(<wbr><span class="parameter" id="CardDragUpdateCallback-param-details"><span class="type-annotation">DragUpdateDetails</span> <span class="parameter-name">details</span></span>)
     </section>
 
-        
+    <section class="desc markdown">
+      <p><code>DragUpdateDetails</code> of swiping card.</p>
+    </section>
+        <section class="summary source-code" id="source">
+      <h2><span>Implementation</span> </h2>
+      <pre class="language-dart"><code class="language-dart">typedef CardDragUpdateCallback = void Function(DragUpdateDetails details);</code></pre>
+    </section>
 
   </div> <!-- /.main-content -->
 

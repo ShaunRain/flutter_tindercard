@@ -1,3 +1,4 @@
-## [0.0.1] - TODO: Add release date.
+## 0.1.4
 
-* TODO: Describe initial release.
+- add `CardSwipeCompleteCallback` for the swiped orientation:
+- add `CardDragUpdateCallback` for the swiping position.

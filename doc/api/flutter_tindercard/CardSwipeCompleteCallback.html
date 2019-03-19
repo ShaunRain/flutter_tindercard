@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="API docs for the CardBuilder property from the flutter_tindercard library, for the Dart programming language.">
-  <title>CardBuilder typedef - flutter_tindercard library - Dart API</title>
+  <meta name="description" content="API docs for the CardSwipeCompleteCallback property from the flutter_tindercard library, for the Dart programming language.">
+  <title>CardSwipeCompleteCallback typedef - flutter_tindercard library - Dart API</title>
   <!-- required because all the links are pseudo-absolute -->
   <base href="..">
 
@@ -25,9 +25,9 @@
   <ol class="breadcrumbs gt-separated dark hidden-xs">
     <li><a href="index.html">flutter_tindercard</a></li>
     <li><a href="flutter_tindercard/flutter_tindercard-library.html">flutter_tindercard</a></li>
-    <li class="self-crumb">CardBuilder typedef</li>
+    <li class="self-crumb">CardSwipeCompleteCallback typedef</li>
   </ol>
-  <div class="self-name">CardBuilder</div>
+  <div class="self-name">CardSwipeCompleteCallback</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -59,15 +59,23 @@
   </div><!--/.sidebar-offcanvas-left-->
 
   <div class="col-xs-12 col-sm-9 col-md-8 main-content">
-    <h1>CardBuilder typedef </h1>
+    <h1>CardSwipeCompleteCallback typedef </h1>
 
     <section class="multi-line-signature">
-        <span class="returntype">Widget</span>
-        <span class="name ">CardBuilder</span>
-(<wbr><span class="parameter" id="CardBuilder-param-context"><span class="type-annotation">BuildContext</span> <span class="parameter-name">context</span>, </span> <span class="parameter" id="CardBuilder-param-index"><span class="type-annotation">int</span> <span class="parameter-name">index</span></span>)
+        <span class="returntype">void</span>
+        <span class="name ">CardSwipeCompleteCallback</span>
+(<wbr><span class="parameter" id="CardSwipeCompleteCallback-param-orientation"><span class="type-annotation"><a href="flutter_tindercard/CardSwipeOrientation-class.html">CardSwipeOrientation</a></span> <span class="parameter-name">orientation</span></span>)
     </section>
 
-        
+    <section class="desc markdown">
+      <p>swipe card to <a href="flutter_tindercard/CardSwipeOrientation-class.html">CardSwipeOrientation.LEFT</a> or <a href="flutter_tindercard/CardSwipeOrientation-class.html">CardSwipeOrientation.RIGHT</a>
+, <a href="flutter_tindercard/CardSwipeOrientation-class.html">CardSwipeOrientation.RECOVER</a> means back to start.</p>
+    </section>
+        <section class="summary source-code" id="source">
+      <h2><span>Implementation</span> </h2>
+      <pre class="language-dart"><code class="language-dart">typedef CardSwipeCompleteCallback = void Function(
+    CardSwipeOrientation orientation);</code></pre>
+    </section>
 
   </div> <!-- /.main-content -->
 
