@@ -1,6 +1,6 @@
 # flutter_tindercard
 
-Tinder Card Widget.
+Tinder/TanTan Card Widget.
 
 ## Screenshots
 
