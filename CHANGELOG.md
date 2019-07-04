@@ -2,3 +2,6 @@
 
 - add `CardSwipeCompleteCallback` for the swiped orientation:
 - add `CardDragUpdateCallback` for the swiping position.
+
+## 0.1.5
+- update `CardSwipeCompleteCallback` with the card's index param:
