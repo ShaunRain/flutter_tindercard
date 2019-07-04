@@ -53,8 +53,8 @@ class _ExampleHomePageState extends State<ExampleHomePage>
                   swipeUpdateCallback: (DragUpdateDetails details) {
                     /// Get swiping card's position
                   },
-                  swipeCompleteCallback: (CardSwipeOrientation orientation) {
-                    /// Get orientation of swiped card!
+                  swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
+                    /// Get orientation & index of swiped card!
                   }))),
     );
   }

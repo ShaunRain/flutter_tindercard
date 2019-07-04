@@ -179,18 +179,19 @@ class _TinderSwapCardState extends State<TinderSwapCard>
         vsync: this, duration: Duration(milliseconds: 500));
     _animationController.addListener(() => setState(() {}));
     _animationController.addStatusListener((AnimationStatus status) {
+      int index = widget._totalNum - widget._stackNum - _currentFront;
       if (status == AnimationStatus.completed) {
         if (frontCardAlign.x < 3.0 && frontCardAlign.x > -3.0) {
           frontCardAlign = _cardAligns[widget._stackNum - 1];
           _cardRote = 0.0;
           if (widget.swipeCompleteCallback != null) {
-            widget.swipeCompleteCallback(CardSwipeOrientation.RECOVER);
+            widget.swipeCompleteCallback(CardSwipeOrientation.RECOVER, index);
           }
         } else {
           if (widget.swipeCompleteCallback != null) {
             widget.swipeCompleteCallback(frontCardAlign.x < 0
                 ? CardSwipeOrientation.LEFT
-                : CardSwipeOrientation.RIGHT);
+                : CardSwipeOrientation.RIGHT, index);
           }
 
           changeCardOrder();
@@ -220,7 +221,7 @@ enum CardSwipeOrientation { LEFT, RIGHT, RECOVER }
 /// swipe card to [CardSwipeOrientation.LEFT] or [CardSwipeOrientation.RIGHT]
 /// , [CardSwipeOrientation.RECOVER] means back to start.
 typedef CardSwipeCompleteCallback = void Function(
-    CardSwipeOrientation orientation);
+    CardSwipeOrientation orientation, int index);
 
 /// [DragUpdateDetails] of swiping card.
 typedef CardDragUpdateCallback = void Function(DragUpdateDetails details);
