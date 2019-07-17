@@ -13,6 +13,7 @@ class TinderSwapCard extends StatefulWidget {
   int _stackNum;
   CardSwipeCompleteCallback swipeCompleteCallback;
   CardDragUpdateCallback swipeUpdateCallback;
+  CardController cardController;
 
 //  double _maxWidth;
 //  double _minWidth;
@@ -34,6 +35,7 @@ class TinderSwapCard extends StatefulWidget {
       double maxHeight,
       double minWidth,
       double minHeight,
+      this.cardController,
       this.swipeCompleteCallback,
       this.swipeUpdateCallback})
       : this._cardBuilder = cardBuilder,
@@ -84,6 +86,7 @@ class _TinderSwapCardState extends State<TinderSwapCard>
   Alignment frontCardAlign;
   AnimationController _animationController;
   int _currentFront;
+  static int _trigger; // 0: no trigger; -1: trigger left; 1: trigger right
 
   Widget _buildCard(BuildContext context, int realIndex) {
     if (realIndex < 0) {
@@ -94,7 +97,9 @@ class _TinderSwapCardState extends State<TinderSwapCard>
     if (index == widget._stackNum - 1) {
       return Align(
         alignment: _animationController.status == AnimationStatus.forward
-            ? CardAnimation.frontCardAlign(_animationController, frontCardAlign,
+            ? frontCardAlign = CardAnimation.frontCardAlign(
+                    _animationController,
+                    frontCardAlign,
                     _cardAligns[widget._stackNum - 1])
                 .value
             : frontCardAlign,
@@ -156,17 +161,26 @@ class _TinderSwapCardState extends State<TinderSwapCard>
           });
         },
         onPanEnd: (DragEndDetails details) {
-          animateCards();
+          animateCards(0);
         },
       ),
     ));
     return cards;
   }
 
-  animateCards() {
+  animateCards(int trigger) {
+    if (_animationController.isAnimating ||
+        _currentFront + widget._stackNum == 0) {
+      return;
+    }
+    _trigger = trigger;
     _animationController.stop();
     _animationController.value = 0.0;
     _animationController.forward();
+  }
+
+  void triggerSwap(int trigger) {
+    animateCards(trigger);
   }
 
   @override
@@ -189,9 +203,11 @@ class _TinderSwapCardState extends State<TinderSwapCard>
           }
         } else {
           if (widget.swipeCompleteCallback != null) {
-            widget.swipeCompleteCallback(frontCardAlign.x < 0
-                ? CardSwipeOrientation.LEFT
-                : CardSwipeOrientation.RIGHT, index);
+            widget.swipeCompleteCallback(
+                frontCardAlign.x < 0
+                    ? CardSwipeOrientation.LEFT
+                    : CardSwipeOrientation.RIGHT,
+                index);
           }
 
           changeCardOrder();
@@ -202,6 +218,8 @@ class _TinderSwapCardState extends State<TinderSwapCard>
 
   @override
   Widget build(BuildContext context) {
+    widget.cardController?.addListener((trigger) => triggerSwap(trigger));
+
     return Stack(children: _buildCards(context));
   }
 
@@ -231,9 +249,17 @@ enum AmassOrientation { TOP, BOTTOM, LEFT, RIGHT }
 class CardAnimation {
   static Animation<Alignment> frontCardAlign(AnimationController controller,
       Alignment beginAlign, Alignment baseAlign) {
-    double endX = beginAlign.x > 0
-        ? (beginAlign.x > 3.0 ? beginAlign.x + 10.0 : baseAlign.x)
-        : (beginAlign.x < -3.0 ? beginAlign.x - 10.0 : baseAlign.x);
+    double endX;
+
+    if (_TinderSwapCardState._trigger == 0) {
+      endX = beginAlign.x > 0
+          ? (beginAlign.x > 3.0 ? beginAlign.x + 10.0 : baseAlign.x)
+          : (beginAlign.x < -3.0 ? beginAlign.x - 10.0 : baseAlign.x);
+    } else if (_TinderSwapCardState._trigger == -1) {
+      endX = beginAlign.x - 5.0;
+    } else {
+      endX = beginAlign.x + 5.0;
+    }
     return new AlignmentTween(
             begin: beginAlign, end: new Alignment(endX, baseAlign.y))
         .animate(
@@ -256,5 +282,31 @@ class CardAnimation {
       Alignment beginAlign, Alignment endAlign) {
     return new AlignmentTween(begin: beginAlign, end: endAlign).animate(
         new CurvedAnimation(parent: controller, curve: Curves.easeOut));
+  }
+}
+
+typedef TriggerListener = void Function(int trigger);
+
+class CardController {
+  TriggerListener _listener;
+
+  void triggerLeft() {
+    if (_listener != null) {
+      _listener(-1);
+    }
+  }
+
+  void triggerRight() {
+    if (_listener != null) {
+      _listener(1);
+    }
+  }
+
+  void addListener(listener) {
+    _listener = listener;
+  }
+
+  void removeListener() {
+    _listener = null;
   }
 }

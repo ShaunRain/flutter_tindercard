@@ -5,3 +5,6 @@
 
 ## 0.1.5
 - update `CardSwipeCompleteCallback` with the card's index param:
+
+## 0.1.6
+- add `CardController` to trigger swap from outside.

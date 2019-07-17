@@ -35,6 +35,8 @@ class _ExampleHomePageState extends State<ExampleHomePage>
 
   @override
   Widget build(BuildContext context) {
+    CardController controller;  //Use this to trigger swap.
+
     return new Scaffold(
       body: new Center(
           child: Container(
@@ -50,6 +52,7 @@ class _ExampleHomePageState extends State<ExampleHomePage>
                   cardBuilder: (context, index) => Card(
                         child: Image.asset('${welcomeImages[index]}'),
                       ),
+                  cardController: controller = CardController(),
                   swipeUpdateCallback: (DragUpdateDetails details) {
                     /// Get swiping card's position
                   },
