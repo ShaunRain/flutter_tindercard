@@ -8,7 +8,7 @@ Tinder/TanTan Card Widget.
 
 ## Getting Started
 
-1. Depend on it by adding this to your pubspec.yaml file: ```flutter_tindercard: ^0.1.5```
+1. Depend on it by adding this to your pubspec.yaml file: ```flutter_tindercard: ^0.1.6```
 
 2. Import it: ```import 'package:flutter_tindercard.dart'```
 
