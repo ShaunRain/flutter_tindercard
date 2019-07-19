@@ -1,5 +1,8 @@
 # flutter_tindercard
 
+[![Pub](https://img.shields.io/pub/v/flutter_tindercard.svg?color=%233CB371)](https://pub.dartlang.org/packages/flutter_tindercard)
+[![Closed](https://img.shields.io/github/issues-closed-raw/ShaunRain/flutter_tindercard.svg?color=%23FF69B4)](https://github.com/ShaunRain/flutter_tindercard/issues?q=is%3Aissue+is%3Aclosed)
+
 Tinder/TanTan Card Widget.
 
 ## Screenshots
