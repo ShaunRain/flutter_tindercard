@@ -8,3 +8,7 @@
 
 ## 0.1.6
 - add `CardController` to trigger swap from outside.
+
+## 0.1.7
+- add `animDuration` param to custom.
+- Optimize the animation.
