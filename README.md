@@ -21,5 +21,7 @@ Tinder/TanTan Card Widget.
 
 5. Use `CardController` to trigger swap from outside. Init a CardController as param for widget, and invoke method `triggerLeft/Right` of your `CardController` to trigger swipe!
 
+6. Use `CardDragUpdateCallback` to get swiping card's detail.
+
 ## Example
 [See Here](./example/example.dart)

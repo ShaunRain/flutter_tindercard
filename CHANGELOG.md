@@ -12,3 +12,7 @@
 ## 0.1.7
 - add `animDuration` param to custom.
 - Optimize the animation.
+
+## 0.1.8
+- update `CardDragUpdateCallback` for the swiping card's detail.
+- add `swipeEdge` to determine action(recover or swipe) when you release your swiping card.
