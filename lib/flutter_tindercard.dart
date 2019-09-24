@@ -13,6 +13,7 @@ class TinderSwapCard extends StatefulWidget {
   int _stackNum;
   int _animDuration;
   double _swipeEdge;
+  bool _allowVerticalMovement;
   CardSwipeCompleteCallback swipeCompleteCallback;
   CardDragUpdateCallback swipeUpdateCallback;
   CardController cardController;
@@ -30,19 +31,21 @@ class TinderSwapCard extends StatefulWidget {
   /// , [swipeEdge] is the edge to determine action(recover or swipe) when you release your swiping card
   /// it is the value of alignment, 0.0 means middle, so it need bigger than zero.
   /// , and size control params;
-  TinderSwapCard({@required CardBuilder cardBuilder,
-    @required int totalNum,
-    AmassOrientation orientation = AmassOrientation.BOTTOM,
-    int stackNum = 3,
-    int animDuration = 800,
-    double swipeEdge = 3.0,
-    double maxWidth,
-    double maxHeight,
-    double minWidth,
-    double minHeight,
-    this.cardController,
-    this.swipeCompleteCallback,
-    this.swipeUpdateCallback})
+  TinderSwapCard(
+      {@required CardBuilder cardBuilder,
+      @required int totalNum,
+      AmassOrientation orientation = AmassOrientation.BOTTOM,
+      int stackNum = 3,
+      int animDuration = 800,
+      double swipeEdge = 3.0,
+      double maxWidth,
+      double maxHeight,
+      double minWidth,
+      double minHeight,
+      bool allowVerticalMovement = true,
+      this.cardController,
+      this.swipeCompleteCallback,
+      this.swipeUpdateCallback})
       : this._cardBuilder = cardBuilder,
         this._totalNum = totalNum,
         assert(stackNum > 1),
@@ -50,7 +53,8 @@ class TinderSwapCard extends StatefulWidget {
         this._animDuration = animDuration,
         assert(swipeEdge > 0),
         this._swipeEdge = swipeEdge,
-        assert(maxWidth > minWidth && maxHeight > minHeight)
+        assert(maxWidth > minWidth && maxHeight > minHeight),
+        this._allowVerticalMovement = allowVerticalMovement
 //        this._maxWidth = maxWidth,
 //        this._minWidth = minWidth,
 //        this._maxHeight = maxHeight,
@@ -104,21 +108,19 @@ class _TinderSwapCardState extends State<TinderSwapCard>
     if (index == widget._stackNum - 1) {
       return Align(
         alignment: _animationController.status == AnimationStatus.forward
-            ? frontCardAlign = CardAnimation
-            .frontCardAlign(
-            _animationController,
-            frontCardAlign,
-            _cardAligns[widget._stackNum - 1],
-            widget._swipeEdge)
-            .value
+            ? frontCardAlign = CardAnimation.frontCardAlign(
+                    _animationController,
+                    frontCardAlign,
+                    _cardAligns[widget._stackNum - 1],
+                    widget._swipeEdge)
+                .value
             : frontCardAlign,
         child: Transform.rotate(
             angle: (pi / 180.0) *
                 (_animationController.status == AnimationStatus.forward
-                    ? CardAnimation
-                    .frontCardRota(
-                    _animationController, frontCardAlign.x)
-                    .value
+                    ? CardAnimation.frontCardRota(
+                            _animationController, frontCardAlign.x)
+                        .value
                     : frontCardAlign.x),
             child: new SizedBox.fromSize(
               size: _cardSizes[index],
@@ -130,19 +132,17 @@ class _TinderSwapCardState extends State<TinderSwapCard>
 
     return Align(
       alignment: _animationController.status == AnimationStatus.forward &&
-          (frontCardAlign.x > 3.0 || frontCardAlign.x < -3.0)
-          ? CardAnimation
-          .backCardAlign(_animationController,
-          _cardAligns[index], _cardAligns[index + 1])
-          .value
+              (frontCardAlign.x > 3.0 || frontCardAlign.x < -3.0)
+          ? CardAnimation.backCardAlign(_animationController,
+                  _cardAligns[index], _cardAligns[index + 1])
+              .value
           : _cardAligns[index],
       child: new SizedBox.fromSize(
         size: _animationController.status == AnimationStatus.forward &&
-            (frontCardAlign.x > 3.0 || frontCardAlign.x < -3.0)
-            ? CardAnimation
-            .backCardSize(_animationController,
-            _cardSizes[index], _cardSizes[index + 1])
-            .value
+                (frontCardAlign.x > 3.0 || frontCardAlign.x < -3.0)
+            ? CardAnimation.backCardSize(_animationController,
+                    _cardSizes[index], _cardSizes[index + 1])
+                .value
             : _cardSizes[index],
         child: widget._cardBuilder(context, widget._totalNum - realIndex - 1),
       ),
@@ -159,17 +159,24 @@ class _TinderSwapCardState extends State<TinderSwapCard>
       child: new GestureDetector(
         onPanUpdate: (DragUpdateDetails details) {
           setState(() {
-            frontCardAlign = new Alignment(
-                frontCardAlign.x +
-                    details.delta.dx * 20 / MediaQuery
-                        .of(context)
-                        .size
-                        .width,
-                frontCardAlign.y +
-                    details.delta.dy * 30 / MediaQuery
-                        .of(context)
-                        .size
-                        .height);
+            if (widget._allowVerticalMovement == true) {
+              frontCardAlign = new Alignment(
+                  frontCardAlign.x +
+                      details.delta.dx * 20 / MediaQuery.of(context).size.width,
+                  frontCardAlign.y +
+                      details.delta.dy *
+                          30 /
+                          MediaQuery.of(context).size.height);
+            } else {
+              frontCardAlign = new Alignment(
+                  frontCardAlign.x +
+                      details.delta.dx * 20 / MediaQuery.of(context).size.width,
+                  0);
+
+              if (widget.swipeUpdateCallback != null) {
+                widget.swipeUpdateCallback(details, frontCardAlign);
+              }
+            }
 
             if (widget.swipeUpdateCallback != null) {
               widget.swipeUpdateCallback(details, frontCardAlign);
@@ -258,7 +265,8 @@ typedef CardSwipeCompleteCallback = void Function(
     CardSwipeOrientation orientation, int index);
 
 /// [DragUpdateDetails] of swiping card.
-typedef CardDragUpdateCallback = void Function(DragUpdateDetails details, Alignment align);
+typedef CardDragUpdateCallback = void Function(
+    DragUpdateDetails details, Alignment align);
 
 enum AmassOrientation { TOP, BOTTOM, LEFT, RIGHT }
 
@@ -271,9 +279,9 @@ class CardAnimation {
       endX = beginAlign.x > 0
           ? (beginAlign.x > swipeEdge ? beginAlign.x + 10.0 : baseAlign.x)
           : (beginAlign.x < -swipeEdge ? beginAlign.x - 10.0 : baseAlign.x);
-      endY =
-      beginAlign.x > 3.0 || beginAlign.x < -swipeEdge ? beginAlign.y : baseAlign
-          .y;
+      endY = beginAlign.x > 3.0 || beginAlign.x < -swipeEdge
+          ? beginAlign.y
+          : baseAlign.y;
     } else if (_TinderSwapCardState._trigger == -1) {
       endX = beginAlign.x - swipeEdge;
       endY = beginAlign.y + 0.5;
@@ -281,20 +289,19 @@ class CardAnimation {
       endX = beginAlign.x + swipeEdge;
       endY = beginAlign.y + 0.5;
     }
-    return new AlignmentTween(
-        begin: beginAlign, end: new Alignment(endX, endY))
+    return new AlignmentTween(begin: beginAlign, end: new Alignment(endX, endY))
         .animate(
-        new CurvedAnimation(parent: controller, curve: Curves.easeOut));
+            new CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
 
-  static Animation<double> frontCardRota(AnimationController controller,
-      double beginRot) {
+  static Animation<double> frontCardRota(
+      AnimationController controller, double beginRot) {
     return new Tween(begin: beginRot, end: 0.0).animate(
         new CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
 
-  static Animation<Size> backCardSize(AnimationController controller,
-      Size beginSize, Size endSize) {
+  static Animation<Size> backCardSize(
+      AnimationController controller, Size beginSize, Size endSize) {
     return new SizeTween(begin: beginSize, end: endSize).animate(
         new CurvedAnimation(parent: controller, curve: Curves.easeOut));
   }
