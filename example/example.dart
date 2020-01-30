@@ -43,7 +43,7 @@ class _ExampleHomePageState extends State<ExampleHomePage>
               height: MediaQuery.of(context).size.height * 0.6,
               child: new TinderSwapCard(
                   orientation: AmassOrientation.BOTTOM,
-                  totalNum: 6,
+                  totalNum: welcomeImages.length,
                   stackNum: 3,
                   swipeEdge: 4.0,
                   maxWidth: MediaQuery.of(context).size.width * 0.9,
@@ -66,7 +66,10 @@ class _ExampleHomePageState extends State<ExampleHomePage>
                   swipeCompleteCallback:
                       (CardSwipeOrientation orientation, int index) {
                     /// Get orientation & index of swiped card!
-                  }))),
+                  },
+              ),
+          ),
+      ),
     );
   }
 }
