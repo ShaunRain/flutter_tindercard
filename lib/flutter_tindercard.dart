@@ -93,7 +93,7 @@ class TinderSwapCard extends StatefulWidget {
 }
 
 class _TinderSwapCardState extends State<TinderSwapCard>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   Alignment frontCardAlign;
   AnimationController _animationController;
   int _currentFront;
@@ -206,9 +206,28 @@ class _TinderSwapCardState extends State<TinderSwapCard>
     animateCards(trigger);
   }
 
+  // support for asynchronous data events 
+  @override
+  void didUpdateWidget(covariant TinderSwapCard oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget._totalNum != oldWidget._totalNum) {
+      _initState();
+    }
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
   @override
   void initState() {
     super.initState();
+    _initState();
+  }
+
+  void _initState() {
     _currentFront = widget._totalNum - widget._stackNum;
 
     frontCardAlign = _cardAligns[_cardAligns.length - 1];
