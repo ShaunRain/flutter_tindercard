@@ -247,6 +247,12 @@ class _TinderSwapCardState extends State<TinderSwapCard>
     return Stack(children: _buildCards(context));
   }
 
+  @override
+  dispose() {
+    this._animationController.dispose();
+    super.dispose();
+  }
+
   changeCardOrder() {
     setState(() {
       _currentFront--;
