@@ -16,3 +16,8 @@
 ## 0.1.8
 - update `CardDragUpdateCallback` for the swiping card's detail.
 - add `swipeEdge` to determine action(recover or swipe) when you release your swiping card.
+
+## 0.1.9
+- Bug Fix.
+- Support async.
+- Support vertical swip.
