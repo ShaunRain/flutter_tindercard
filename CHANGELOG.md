@@ -21,3 +21,6 @@
 - Bug Fix.
 - Support async.
 - Support vertical swip.
+
+## 0.2.0
+- Upgrade swipe animation.
