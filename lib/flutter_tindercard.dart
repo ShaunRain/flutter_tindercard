@@ -136,14 +136,20 @@ class _TinderSwapCardState extends State<TinderSwapCard>
 
     return Align(
       alignment: _animationController.status == AnimationStatus.forward &&
-              (frontCardAlign.x > 3.0 || frontCardAlign.x < -3.0)
+              (frontCardAlign.x > 3.0 ||
+                  frontCardAlign.x < -3.0 ||
+                  frontCardAlign.y > 3 ||
+                  frontCardAlign.y < -3)
           ? CardAnimation.backCardAlign(_animationController,
                   _cardAligns[index], _cardAligns[index + 1])
               .value
           : _cardAligns[index],
       child: new SizedBox.fromSize(
         size: _animationController.status == AnimationStatus.forward &&
-                (frontCardAlign.x > 3.0 || frontCardAlign.x < -3.0)
+                (frontCardAlign.x > 3.0 ||
+                    frontCardAlign.x < -3.0 ||
+                    frontCardAlign.y > 3 ||
+                    frontCardAlign.y < -3)
             ? CardAnimation.backCardSize(_animationController,
                     _cardSizes[index], _cardSizes[index + 1])
                 .value
