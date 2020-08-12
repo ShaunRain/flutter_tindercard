@@ -42,8 +42,6 @@ class _ExampleHomePageState extends State<ExampleHomePage>
           child: Container(
               height: MediaQuery.of(context).size.height * 0.6,
               child: new TinderSwapCard(
-                  swipeUp: true,
-                  swipeDown: true,
                   orientation: AmassOrientation.BOTTOM,
                   totalNum: welcomeImages.length,
                   stackNum: 3,
