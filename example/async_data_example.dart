@@ -127,7 +127,9 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage> wit
             }
           },
           swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
-            onSwipe(orientation, index);
+            if (orientation != CardSwipeOrientation.RECOVER) {
+              onSwipe(orientation, index);
+            }
 
             /// Get orientation & index of swiped card!
           },
