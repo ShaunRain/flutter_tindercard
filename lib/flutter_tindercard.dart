@@ -335,7 +335,7 @@ class CardAnimation {
       var beginY =
           _TinderSwapCardState._trigger == TriggerDirection.up ? -10 : 10;
 
-      endY = beginY < -swipeEdge ? beginY - 10.0 : baseAlign.y;
+      endY = beginY < -swipeEdge ? beginY - 10.0 : beginY + 10.0;
 
       endX = beginAlign.x > 0
           ? (beginAlign.x > swipeEdge ? beginAlign.x + 10.0 : baseAlign.x)
