@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// support for asynchronous data events 
+// support for asynchronous data events
 class AsyncDataExampleHomePage extends StatefulWidget {
   @override
   _AsyncDataExampleHomePageState createState() => _AsyncDataExampleHomePageState();
@@ -45,10 +45,10 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage> wit
   void _addToStream() {
     Random random = new Random();
     int index = random.nextInt(3);
-    welcomeImages.insert(0, 'assets/welcome$index.png');
-    _streamController.add(welcomeImages); 
+    welcomeImages.add('assets/welcome$index.png');
+    _streamController.add(welcomeImages);
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -65,15 +65,25 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage> wit
             StreamBuilder<List<String>>(
               stream: _streamController.stream,
               initialData: welcomeImages,
-              builder: (BuildContext context, AsyncSnapshot<List<String>>snapshot) {
+              builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
                 print('snapshot.data.length: ${snapshot.data.length}');
-                if (snapshot.hasError)
-                  return Text('Error: ${snapshot.error}');
+                if (snapshot.hasError) return Text('Error: ${snapshot.error}');
                 switch (snapshot.connectionState) {
-                  case ConnectionState.none: return Text('Add image');
+                  case ConnectionState.none:
+                    return Text('Add image');
                   case ConnectionState.waiting: /*return Text('Awaiting images...');*/
-                  case ConnectionState.active: return _AsyncDataExample(context, snapshot.data);
-                  case ConnectionState.done: return Text('\$${snapshot.data} (closed)');
+                  case ConnectionState.active:
+                    return _AsyncDataExample(
+                      context,
+                      snapshot.data,
+                      (CardSwipeOrientation orientation, int index) {
+                        // you can send data to backend service vie orientation
+                        welcomeImages.removeAt(index);
+                        _streamController.add(welcomeImages);
+                      },
+                    );
+                  case ConnectionState.done:
+                    return Text('\$${snapshot.data} (closed)');
                 }
                 return null; // unreachable
               },
@@ -89,7 +99,7 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage> wit
     );
   }
 
-  Widget _AsyncDataExample(BuildContext context, List<String>imageList) {
+  Widget _AsyncDataExample(BuildContext context, List<String> imageList, Function onSwipe) {
     CardController controller; //Use this to trigger swap.
 
     return Center(
@@ -108,8 +118,7 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage> wit
             child: Image.asset('${imageList[index]}'),
           ),
           cardController: controller = CardController(),
-          swipeUpdateCallback:
-            (DragUpdateDetails details, Alignment align) {
+          swipeUpdateCallback: (DragUpdateDetails details, Alignment align) {
             /// Get swiping card's alignment
             if (align.x < 0) {
               //Card is LEFT swiping
@@ -117,8 +126,11 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage> wit
               //Card is RIGHT swiping
             }
           },
-          swipeCompleteCallback:
-            (CardSwipeOrientation orientation, int index) {
+          swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
+            if (orientation != CardSwipeOrientation.RECOVER) {
+              onSwipe(orientation, index);
+            }
+
             /// Get orientation & index of swiped card!
           },
         ),
