@@ -24,4 +24,7 @@ Tinder/TanTan Card Widget.
 6. Use `CardDragUpdateCallback` to get swiping card's detail.
 
 ## Example
-[See Here](./example/example.dart)
+[See Here](./example/example/lib)
+
+## Async Example
+[See Here](./example/async_data/lib)
