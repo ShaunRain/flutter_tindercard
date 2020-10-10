@@ -22,7 +22,8 @@ class ExampleHomePage extends StatefulWidget {
   _ExampleHomePageState createState() => _ExampleHomePageState();
 }
 
-class _ExampleHomePageState extends State<ExampleHomePage> with TickerProviderStateMixin {
+class _ExampleHomePageState extends State<ExampleHomePage>
+    with TickerProviderStateMixin {
   List<String> welcomeImages = [
     "assets/welcome0.png",
     "assets/welcome1.png",
@@ -43,7 +44,7 @@ class _ExampleHomePageState extends State<ExampleHomePage> with TickerProviderSt
           child: new TinderSwapCard(
             swipeUp: true,
             swipeDown: true,
-            orientation: AmassOrientation.BOTTOM,
+            orientation: AmassOrientation.bottom,
             totalNum: welcomeImages.length,
             stackNum: 3,
             swipeEdge: 4.0,
@@ -63,7 +64,8 @@ class _ExampleHomePageState extends State<ExampleHomePage> with TickerProviderSt
                 //Card is RIGHT swiping
               }
             },
-            swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
+            swipeCompleteCallback:
+                (CardSwipeOrientation orientation, int index) {
               /// Get orientation & index of swiped card!
             },
           ),

@@ -19,10 +19,12 @@ class MyApp extends StatelessWidget {
 
 class AsyncDataExampleHomePage extends StatefulWidget {
   @override
-  _AsyncDataExampleHomePageState createState() => _AsyncDataExampleHomePageState();
+  _AsyncDataExampleHomePageState createState() =>
+      _AsyncDataExampleHomePageState();
 }
 
-class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage> with TickerProviderStateMixin {
+class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage>
+    with TickerProviderStateMixin {
   StreamController<List<String>> _streamController;
 
   List<String> welcomeImages = [
@@ -60,7 +62,8 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage> wit
             StreamBuilder<List<String>>(
               stream: _streamController.stream,
               initialData: welcomeImages,
-              builder: (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
                 print('snapshot.data.length: ${snapshot.data.length}');
                 if (snapshot.hasError) return Text('Error: ${snapshot.error}');
                 switch (snapshot.connectionState) {
@@ -96,14 +99,15 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage> wit
     );
   }
 
-  Widget _asyncDataExample(BuildContext context, List<String> imageList, Function onSwipe) {
+  Widget _asyncDataExample(
+      BuildContext context, List<String> imageList, Function onSwipe) {
     CardController controller; //Use this to trigger swap.
 
     return Center(
       child: Container(
         height: MediaQuery.of(context).size.height * 0.6,
         child: TinderSwapCard(
-          orientation: AmassOrientation.BOTTOM,
+          orientation: AmassOrientation.bottom,
           totalNum: imageList.length,
           stackNum: 4,
           swipeEdge: 4.0,
@@ -124,7 +128,7 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage> wit
             }
           },
           swipeCompleteCallback: (CardSwipeOrientation orientation, int index) {
-            if (orientation != CardSwipeOrientation.RECOVER) {
+            if (orientation != CardSwipeOrientation.recover) {
               onSwipe(orientation);
             }
           },
