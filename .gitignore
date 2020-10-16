@@ -9,3 +9,7 @@ ios/.generated/
 ios/Flutter/Generated.xcconfig
 ios/Runner/GeneratedPluginRegistrant.*
 .idea/workspace.xml
+
+# Untrack pubspec.lock
+
+pubspec.lock

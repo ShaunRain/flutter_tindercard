@@ -1,0 +1,22 @@
+include: package:effective_dart/analysis_options.yaml # https://pub.dartlang.org/packages/effective_dart
+linter: # Lint rules: http://dart-lang.github.io/linter/lints/
+  rules:
+    public_member_api_docs: false
+    avoid_empty_else: true # https://dart-lang.github.io/linter/lints/avoid_empty_else.html
+    avoid_positional_boolean_parameters: false
+    avoid_relative_lib_imports: true # https://dart-lang.github.io/linter/lints/avoid_relative_lib_imports.html
+    avoid_slow_async_io: true # https://dart-lang.github.io/linter/lints/avoid_slow_async_io.html
+    avoid_types_as_parameter_names: true # https://dart-lang.github.io/linter/lints/avoid_types_as_parameter_names.html
+    cancel_subscriptions: true # https://dart-lang.github.io/linter/lints/cancel_subscriptions.html
+    close_sinks: false # https://dart-lang.github.io/linter/lints/close_sinks.html
+    control_flow_in_finally: true # https://dart-lang.github.io/linter/lints/control_flow_in_finally.html
+    hash_and_equals: true # http://dart-lang.github.io/linter/lints/hash_and_equals.html
+    iterable_contains_unrelated_type: true # http://dart-lang.github.io/linter/lints/iterable_contains_unrelated_type.html
+    list_remove_unrelated_type: true # http://dart-lang.github.io/linter/lints/list_remove_unrelated_type.html
+    literal_only_boolean_expressions: true # http://dart-lang.github.io/linter/lints/literal_only_boolean_expressions.html
+    no_adjacent_strings_in_list: true # http://dart-lang.github.io/linter/lints/no_adjacent_strings_in_list.html
+    prefer_relative_imports: false
+    unawaited_futures: false # https://dart-lang.github.io/linter/lints/unawaited_futures.html
+    unnecessary_statements: true # http://dart-lang.github.io/linter/lints/unnecessary_statements.html
+    unrelated_type_equality_checks: true # https://dart-lang.github.io/linter/lints/unrelated_type_equality_checks.html
+    valid_regexps: true # https://dart-lang.github.io/linter/lints/valid_regexps.html
