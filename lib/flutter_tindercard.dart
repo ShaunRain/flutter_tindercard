@@ -68,7 +68,7 @@ class TinderSwapCard extends StatefulWidget {
   })  : assert(stackNum > 1),
         assert(swipeEdge > 0),
         assert(swipeEdgeVertical > 0),
-        assert(maxWidth > minWidth && maxHeight > minHeight),
+        assert(maxWidth >= minWidth && maxHeight >= minHeight),
         _cardBuilder = cardBuilder,
         _totalNum = totalNum,
         _stackNum = stackNum,
@@ -81,14 +81,14 @@ class TinderSwapCard extends StatefulWidget {
     final widthGap = maxWidth - minWidth;
     final heightGap = maxHeight - minHeight;
 
-    for (var i = 0; i < _stackNum; i++) {
+    int i = _stackNum;
+    while (i-- != 0) {
       _cardSizes.add(
-        Size(minWidth + (widthGap / _stackNum) * i,
-            minHeight + (heightGap / _stackNum) * i),
+        Size(maxWidth - (widthGap / _stackNum) * i, maxHeight - (heightGap / _stackNum) * i),
       );
 
       switch (orientation) {
-        case AmassOrientation.bottom:
+        case AmassOrientation.top:
           _cardAligns.add(
             Alignment(
               0.0,
@@ -96,7 +96,7 @@ class TinderSwapCard extends StatefulWidget {
             ),
           );
           break;
-        case AmassOrientation.top:
+        case AmassOrientation.bottom:
           _cardAligns.add(
             Alignment(
               0.0,
