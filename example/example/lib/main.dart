@@ -47,20 +47,17 @@ class _ExampleHomePageState extends State<ExampleHomePage>
             orientation: AmassOrientation.bottom,
             totalNum: welcomeImages.length,
             stackNum: 3,
-            swipeEdge: 4.0,
             maxWidth: MediaQuery.of(context).size.width * 0.9,
             maxHeight: MediaQuery.of(context).size.width * 0.9,
-            minWidth: MediaQuery.of(context).size.width * 0.8,
-            minHeight: MediaQuery.of(context).size.width * 0.8,
             cardBuilder: (context, index) => Card(
               child: Image.asset('${welcomeImages[index]}'),
             ),
             cardController: controller = CardController(),
-            swipeUpdateCallback: (DragUpdateDetails details, Alignment align) {
+            swipeUpdateCallback: (DragUpdateDetails details, Offset offset) {
               /// Get swiping card's alignment
-              if (align.x < 0) {
+              if (offset.dx < 0) {
                 //Card is LEFT swiping
-              } else if (align.x > 0) {
+              } else if (offset.dx > 0) {
                 //Card is RIGHT swiping
               }
             },
