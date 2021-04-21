@@ -25,7 +25,7 @@ class AsyncDataExampleHomePage extends StatefulWidget {
 
 class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage>
     with TickerProviderStateMixin {
-  StreamController<List<String>> _streamController;
+  late StreamController<List<String>> _streamController;
 
   List<String> welcomeImages = [
     "assets/welcome0.png",
@@ -64,7 +64,7 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage>
               initialData: welcomeImages,
               builder:
                   (BuildContext context, AsyncSnapshot<List<String>> snapshot) {
-                print('snapshot.data.length: ${snapshot.data.length}');
+                print('snapshot.data.length: ${snapshot.data!.length}');
                 if (snapshot.hasError) return Text('Error: ${snapshot.error}');
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
@@ -74,7 +74,7 @@ class _AsyncDataExampleHomePageState extends State<AsyncDataExampleHomePage>
                   case ConnectionState.active:
                     return _asyncDataExample(
                       context,
-                      snapshot.data,
+                      snapshot.data!,
                       (CardSwipeOrientation orientation) {
                         // welcomeImages[0] is the swiped card
                         // you can send to backend service in here

@@ -1,11 +1,11 @@
 name: flutter_tindercard
 description: Tinder(TanTan) Card Widget, fast way to have a high quality swap card widget in your flutter app.
-version: 0.2.0
+version: 0.3.0
 author: ShaunRain <rainamie@gmail.com>
 homepage: https://github.com/ShaunRain/flutter_tindercard
 
 environment:
-  sdk: ">=2.0.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
