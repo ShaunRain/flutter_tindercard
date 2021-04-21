@@ -26,6 +26,8 @@ class TinderSwapCard extends StatefulWidget {
 
   final bool _allowVerticalMovement;
 
+  final bool _allowSwiping;
+
   final CardSwipeCompleteCallback? swipeCompleteCallback;
 
   final CardDragUpdateCallback? swipeUpdateCallback;
@@ -57,6 +59,7 @@ class TinderSwapCard extends StatefulWidget {
     double swipeEdgeVertical = 8.0,
     bool swipeUp = false,
     bool swipeDown = false,
+    bool allowSwiping = true,
     required double maxWidth,
     required double maxHeight,
     required double minWidth,
@@ -69,6 +72,7 @@ class TinderSwapCard extends StatefulWidget {
         assert(swipeEdge > 0),
         assert(swipeEdgeVertical > 0),
         assert(maxWidth > minWidth && maxHeight > minHeight),
+        _allowSwiping = allowSwiping,
         _cardBuilder = cardBuilder,
         _totalNum = totalNum,
         _stackNum = stackNum,
@@ -212,40 +216,42 @@ class _TinderSwapCardState extends State<TinderSwapCard>
 
     cards.add(SizedBox.expand(
       child: GestureDetector(
-        onPanUpdate: (final details) {
-          setState(() {
-            if (widget._allowVerticalMovement == true) {
-              frontCardAlign = Alignment(
-                frontCardAlign!.x +
-                    details.delta.dx * 20 / MediaQuery.of(context).size.width,
-                frontCardAlign!.y +
-                    details.delta.dy * 30 / MediaQuery.of(context).size.height,
-              );
-            } else {
-              frontCardAlign = Alignment(
-                frontCardAlign!.x +
-                    details.delta.dx * 20 / MediaQuery.of(context).size.width,
-                0,
-              );
-
-              if (widget.swipeUpdateCallback != null) {
-                widget.swipeUpdateCallback!(
-                    details, frontCardAlign ?? Alignment.center);
-              }
-            }
-
-            if (widget.swipeUpdateCallback != null) {
-              widget.swipeUpdateCallback!(
-                  details, frontCardAlign ?? Alignment.center);
-            }
-          });
-        },
+        onPanUpdate: widget._allowSwiping ? _handlePanGesture : null,
         onPanEnd: (final details) {
           animateCards(TriggerDirection.none);
         },
       ),
     ));
     return cards;
+  }
+
+  void _handlePanGesture(DragUpdateDetails details) {
+    setState(() {
+      if (widget._allowVerticalMovement == true) {
+        frontCardAlign = Alignment(
+          frontCardAlign!.x +
+              details.delta.dx * 20 / MediaQuery.of(context).size.width,
+          frontCardAlign!.y +
+              details.delta.dy * 30 / MediaQuery.of(context).size.height,
+        );
+      } else {
+        frontCardAlign = Alignment(
+          frontCardAlign!.x +
+              details.delta.dx * 20 / MediaQuery.of(context).size.width,
+          0,
+        );
+
+        if (widget.swipeUpdateCallback != null) {
+          widget.swipeUpdateCallback!(
+              details, frontCardAlign ?? Alignment.center);
+        }
+      }
+
+      if (widget.swipeUpdateCallback != null) {
+        widget.swipeUpdateCallback!(
+            details, frontCardAlign ?? Alignment.center);
+      }
+    });
   }
 
   void animateCards(TriggerDirection trigger) {
