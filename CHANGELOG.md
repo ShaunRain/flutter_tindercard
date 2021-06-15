@@ -24,3 +24,6 @@
 
 ## 0.2.0
 - Upgrade swipe animation.
+
+## 0.2.1
+- Migrate to null safety.
