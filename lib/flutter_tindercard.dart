@@ -214,24 +214,13 @@ class _TinderSwapCardState extends State<TinderSwapCard>
       child: GestureDetector(
         onPanUpdate: (final details) {
           setState(() {
-            if (widget._allowVerticalMovement == true) {
-              frontCardAlign = Alignment(
-                frontCardAlign.x +
-                    details.delta.dx * 20 / MediaQuery.of(context).size.width,
-                frontCardAlign.y +
-                    details.delta.dy * 30 / MediaQuery.of(context).size.height,
-              );
-            } else {
-              frontCardAlign = Alignment(
-                frontCardAlign.x +
-                    details.delta.dx * 20 / MediaQuery.of(context).size.width,
-                0,
-              );
-
-              if (widget.swipeUpdateCallback != null) {
-                widget.swipeUpdateCallback!(details, frontCardAlign);
-              }
-            }
+            frontCardAlign = Alignment(
+              frontCardAlign.x + details.delta.dx * 20 / MediaQuery.of(context).size.width,
+              widget._allowVerticalMovement
+                  ? frontCardAlign.y +
+                      details.delta.dy * 30 / MediaQuery.of(context).size.height
+                  : frontCardAlign.y,
+            );
 
             if (widget.swipeUpdateCallback != null) {
               widget.swipeUpdateCallback!(details, frontCardAlign);
