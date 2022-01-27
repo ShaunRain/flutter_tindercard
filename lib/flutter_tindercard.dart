@@ -26,6 +26,8 @@ class TinderSwapCard extends StatefulWidget {
 
   final bool _allowVerticalMovement;
 
+  final bool _enabled;
+
   final CardSwipeCompleteCallback? swipeCompleteCallback;
 
   final CardDragUpdateCallback? swipeUpdateCallback;
@@ -62,6 +64,7 @@ class TinderSwapCard extends StatefulWidget {
     double? minWidth,
     double? minHeight,
     bool allowVerticalMovement = true,
+    bool enabled = true,
     this.cardController,
     this.swipeCompleteCallback,
     this.swipeUpdateCallback,
@@ -77,7 +80,8 @@ class TinderSwapCard extends StatefulWidget {
         _swipeEdgeVertical = swipeEdgeVertical,
         _swipeUp = swipeUp,
         _swipeDown = swipeDown,
-        _allowVerticalMovement = allowVerticalMovement {
+        _allowVerticalMovement = allowVerticalMovement,
+        _enabled = enabled {
     final widthGap = maxWidth! - minWidth!;
     final heightGap = maxHeight! - minHeight!;
 
@@ -127,11 +131,11 @@ class TinderSwapCard extends StatefulWidget {
 
 class _TinderSwapCardState extends State<TinderSwapCard>
     with TickerProviderStateMixin {
-   late Alignment frontCardAlign;
+  late Alignment frontCardAlign;
 
-   late AnimationController _animationController;
+  late AnimationController _animationController;
 
-   late int _currentFront;
+  late int _currentFront;
 
   static TriggerDirection? _trigger;
 
@@ -213,6 +217,7 @@ class _TinderSwapCardState extends State<TinderSwapCard>
     cards.add(SizedBox.expand(
       child: GestureDetector(
         onPanUpdate: (final details) {
+          if (!widget.enabled) return;
           setState(() {
             if (widget._allowVerticalMovement == true) {
               frontCardAlign = Alignment(
