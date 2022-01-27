@@ -217,7 +217,7 @@ class _TinderSwapCardState extends State<TinderSwapCard>
     cards.add(SizedBox.expand(
       child: GestureDetector(
         onPanUpdate: (final details) {
-          if (!widget.enabled) return;
+          if (!widget._enabled) return;
           setState(() {
             if (widget._allowVerticalMovement == true) {
               frontCardAlign = Alignment(
